@@ -11,8 +11,6 @@
   <url>http://maven.apache.org</url>
   <modules>
     <module>application-springmvc</module>
-    <module>application-dubbo</module>
-    <module>application-cloudserver</module>
   </modules>
 
   <properties>
