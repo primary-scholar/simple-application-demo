@@ -2,7 +2,9 @@ package com.mimu.application.mvc.application.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mimu.application.mvc.api.param.NumberCalculateParam;
+import com.mimu.application.mvc.api.param.NumberOperationParam;
 import com.mimu.application.mvc.api.result.NumberCalculateResult;
+import com.mimu.application.mvc.api.result.NumberSeedResult;
 import com.mimu.application.mvc.api.result.RpcResult;
 import com.mimu.application.mvc.api.result.RpcResultUtil;
 import com.mimu.application.mvc.application.service.NumberOperationHttpService;
@@ -28,5 +30,22 @@ public class CalculateController {
                 param.getOperation());
         NumberCalculateResult operationResult = operationHttpService.numberOperationPost(operationParam);
         return Objects.isNull(operationResult) ? RpcResultUtil.fail() : RpcResultUtil.success(operationResult);
+    }
+
+    @RequestMapping(value = "/api/num/cal/mvc", method = RequestMethod.GET)
+    public RpcResult calculateNumberInMvc(NumberOperationParam param) {
+        LOGGER.info("get param:{}", JSONObject.toJSONString(param));
+        NumberSeedResult first = operationHttpService.numberSeedGet(param);
+        NumberSeedResult second = operationHttpService.numberSeedGet(param);
+        NumberCalculateParam operationParam = NumberOperationBuilder.build(first, second, param.getOperation());
+        NumberCalculateResult operationResult = operationHttpService.numberOperationPostInMvc(operationParam);
+        return Objects.isNull(operationResult) ? RpcResultUtil.fail() : RpcResultUtil.success(operationResult);
+    }
+
+    @RequestMapping(value = "/api/num/cal/mvc/local", method = RequestMethod.POST)
+    public RpcResult calculateNumberInMvcLocal(@RequestBody NumberCalculateParam param) {
+        LOGGER.info("get param:{}", JSONObject.toJSONString(param));
+        NumberCalculateResult build = NumberOperationBuilder.build(param);
+        return  RpcResultUtil.success(build);
     }
 }
