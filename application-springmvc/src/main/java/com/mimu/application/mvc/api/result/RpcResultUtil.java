@@ -1,4 +1,4 @@
-package com.mimu.application.mvc.api;
+package com.mimu.application.mvc.api.result;
 
 public class RpcResultUtil {
 

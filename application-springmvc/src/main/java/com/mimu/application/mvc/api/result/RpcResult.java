@@ -1,4 +1,4 @@
-package com.mimu.application.mvc.api;
+package com.mimu.application.mvc.api.result;
 
 import lombok.Getter;
 import lombok.Setter;
